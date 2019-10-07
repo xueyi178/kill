@@ -1,0 +1,6 @@
+#测试程序是否可用
+http://localhost:8080/user/hello
+#测试Thymelaf模板
+http://localhost:8080/base/welcome
+http://localhost:8080/base/index
+http://localhost:8080/item/

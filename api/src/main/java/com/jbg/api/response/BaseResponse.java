@@ -1,0 +1,56 @@
+package com.jbg.api.response;
+
+import com.jbg.api.enums.StatusCode;
+
+/**
+ * 1.Base的响应体
+ * 项目名称：api 
+ * 类名称：BaseResponse
+ * 开发者：Lenovo
+ * 开发时间：2019年10月6日下午4:53:19
+ */
+public class BaseResponse<T> {
+	private Integer code;
+	private String msg;
+	private T data;
+
+	public BaseResponse(Integer code, String msg) {
+		this.code = code;
+		this.msg = msg;
+	}
+
+	public BaseResponse(StatusCode statusCode) {
+		this.code = statusCode.getCode();
+		this.msg = statusCode.getMsg();
+	}
+
+	public BaseResponse(Integer code, String msg, T data) {
+		this.code = code;
+		this.msg = msg;
+		this.data = data;
+	}
+
+	public Integer getCode() {
+		return code;
+	}
+
+	public void setCode(Integer code) {
+		this.code = code;
+	}
+
+	public String getMsg() {
+		return msg;
+	}
+
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
+
+	public T getData() {
+		return data;
+	}
+
+	public void setData(T data) {
+		this.data = data;
+	}
+}

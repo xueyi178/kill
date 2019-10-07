@@ -1,0 +1,70 @@
+#配置端口号
+server:
+  port: 8080
+
+#邮件系统配置
+mail: 
+   #邮件发送方
+   mailSendName: 987894190@qq.com
+   #邮件是否开启
+   open: true
+   
+#引用开发环境的数据配置文件
+spring:
+    mvc: 
+      view: 
+        prefix: /WEB-INF/views/ 
+        suffix: .jsp 
+    jackson:
+       time-zone: GMT+8
+       date-format: yyyy-MM-dd HH:mm:ss
+    profiles: 
+       active: dev
+    servlet:
+       multipart: 
+         max-file-size: 30Mb
+         max-request-size: 30Mb
+    devtools: 
+       restart: 
+         enabled: true
+    #发送邮件的配置
+    mail: 
+     host: smtp.qq.com
+     username: 987894190@qq.com
+     password: xlnwkankoecxbfif
+     default-encoding: UTF-8
+     properties: 
+       mail: 
+        smtp: 
+         auth: true
+         starttls: 
+           enable: true
+           required: true
+lance:
+  mail:
+    sender: 987894190@qq.com 
+    
+#邮件的主题
+
+        
+#日志配置
+logging: 
+    level: 
+      com.mdf.controller: info
+      
+#mybatis配置文件
+mybatis:
+    #扫描实体类
+     type-aliases-package: com.jbg.model.entity
+    #扫描mybatis文件
+     mapper-locations: classpath:mybatis/*.xml
+    #开启控制台打印sql语句，一般用于本地开发测试
+     configuration:
+             log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+#pagehelper分页插件配置
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params:

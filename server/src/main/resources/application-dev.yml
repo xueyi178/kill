@@ -1,0 +1,101 @@
+#mysql配置文件
+spring:
+  ##数据库连接信息
+  datasource:  
+    url: jdbc:mysql://localhost:3306/jbg_kill?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+    ###################以下为druid增加的配置###########################
+    type: com.alibaba.druid.pool.DruidDataSource
+    # 下面为连接池的补充设置，应用到上面所有数据源中
+    # 初始化大小，最小，最大
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    # 配置获取连接等待超时的时间
+    maxWait: 60000
+    # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+    timeBetweenEvictionRunsMillis: 60000
+    # 配置一个连接在池中最小生存的时间，单位是毫秒
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    # 打开PSCache，并且指定每个连接上PSCache的大小
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+    filters: stat,wall,log4j
+    # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+    # 合并多个DruidDataSource的监控数据
+    useGlobalDataSourceStat: true
+    ###############以上为配置druid添加的配置########################################
+  redis: 
+    # Redis数据库索引（默认为0）
+    database: 0
+    # Redis服务器地址
+    host: 127.0.0.1
+    # Redis服务器连接端口
+    port: 6379
+    # Redis服务器连接密码（默认为空）
+    #password: 
+    # 连接超时时间（毫秒）
+    timeout: 1000
+    #最大空闲数 
+    maxIdle: 300
+    #最大等待毫秒数
+    maxWait: 3000
+    #在提取一个jedis实例时，是否提前进行验证操作；如果为true，则得到的jedis实例均是可用的；
+    testOnBorrow: true
+    ###############以上为配置redis添加的配置########################################
+  rabbitmq: 
+    virtual-host: /
+    host: 127.0.0.1
+    port: 15672
+    username: guest
+    password: guest
+    listener: 
+      simple: 
+        concurrency: 5         # 多个消费者
+        max-concurrency: 15
+        prefetch: 10
+redis: 
+  config: 
+      host: redis://127.0.0.1:6379        
+mq: 
+  env: test
+  kill: 
+    item: 
+      success:  
+        email: 
+          queue: ${mq.env}.kill.item.success.email.queue
+          exchange: ${mq.env}.kill.item.success.email.exchange
+          routing: 
+            key: ${mq.env}.kill.item.success.email.routing.key
+        kill: 
+          expire: 1800000
+          dead: 
+            queue: ${mq.env}.kill.item.success.kill.dead.queue
+            exchange: ${mq.env}.kill.item.success.kill.dead.exchange
+            routing: 
+              key: ${mq.env}.kill.item.success.kill.dead.routing.key
+            real: 
+              queue: ${mq.env}.kill.item.success.kill.dead.real.queue
+            prod: 
+              exchange: ${mq.env}.kill.item.success.kill.dead.prod.exchange
+              routing:
+                key: ${mq.env}.kill.item.success.kill.dead.prod.routing.key
+      ###############以上为配置mq添加的配置########################################
+#zookeeper的配置
+zk:
+  host: 127.0.0.1:2181
+  namespace: kill
+    ###############以上为配置zk添加的配置########################################
+           
+        
+         
+            
+    
